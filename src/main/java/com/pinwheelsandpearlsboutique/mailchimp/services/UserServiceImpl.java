@@ -3,10 +3,12 @@ package com.pinwheelsandpearlsboutique.mailchimp.services;
 import com.pinwheelsandpearlsboutique.mailchimp.models.PWAPUser;
 import com.pinwheelsandpearlsboutique.mailchimp.repositories.UserRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;

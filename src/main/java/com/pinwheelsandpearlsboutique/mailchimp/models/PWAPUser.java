@@ -1,19 +1,23 @@
 package com.pinwheelsandpearlsboutique.mailchimp.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Data
 @Entity
 @Builder
+@AllArgsConstructor
 @Slf4j
 @Table(name = "users")
 public class PWAPUser implements Serializable {
+
+    public PWAPUser(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +29,8 @@ public class PWAPUser implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
+    @JsonProperty("email_address")
     @Column(name = "email")
-    @NotEmpty
     private String emailAddress;
 
 }

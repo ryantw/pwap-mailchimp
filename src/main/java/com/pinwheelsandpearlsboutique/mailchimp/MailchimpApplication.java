@@ -1,4 +1,4 @@
-package com.pinwheelsandpearlsboutique.mailchimp.mailchimp;
+package com.pinwheelsandpearlsboutique.mailchimp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
