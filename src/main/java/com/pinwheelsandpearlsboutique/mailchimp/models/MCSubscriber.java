@@ -15,9 +15,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Slf4j
 @Table(name = "users")
-public class PWAPUser implements Serializable {
+public class MCSubscriber implements Serializable {
 
-    public PWAPUser(){}
+    public MCSubscriber(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,13 +7,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Base64;
 
 @Slf4j
 public class Connection {
 
-    public static String doPost(String postUrl, String body, String authorization){
+    public static String doPost(String postUrl, String body, String authorization) throws IOException {
         StringBuilder response = new StringBuilder();
         HttpURLConnection urlConnection = null;
 
@@ -47,9 +49,10 @@ public class Connection {
 
             in.close();
 
-        } catch (Exception e) {
-            log.error(e.getMessage());
-
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         } finally {
             if(urlConnection != null)
                 urlConnection.disconnect();

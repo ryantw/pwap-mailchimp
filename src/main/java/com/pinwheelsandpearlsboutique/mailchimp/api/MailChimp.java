@@ -3,8 +3,10 @@ package com.pinwheelsandpearlsboutique.mailchimp.api;
 import com.google.gson.Gson;
 import com.pinwheelsandpearlsboutique.mailchimp.api.models.Subscriber;
 import com.pinwheelsandpearlsboutique.mailchimp.api.util.Connection;
-import com.pinwheelsandpearlsboutique.mailchimp.models.PWAPUser;
+import com.pinwheelsandpearlsboutique.mailchimp.models.MCSubscriber;
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
 
 @Slf4j
 public class MailChimp {
@@ -28,7 +30,7 @@ public class MailChimp {
         return null;
     }
 
-    public String subscribeUserToList(String listId, PWAPUser subscriber) {
+    public String subscribeUserToList(String listId, MCSubscriber subscriber) throws IOException {
         final String LIST_ENDPOINT = API_ENDPOINT + "/lists/" + listId + "/members";
         Gson gson = new Gson();
         Subscriber s = Subscriber.builder()

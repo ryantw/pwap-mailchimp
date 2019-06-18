@@ -1,13 +1,15 @@
 package com.pinwheelsandpearlsboutique.mailchimp.controllers;
 
 import com.pinwheelsandpearlsboutique.mailchimp.api.MailChimp;
-import com.pinwheelsandpearlsboutique.mailchimp.models.PWAPUser;
+import com.pinwheelsandpearlsboutique.mailchimp.models.MCSubscriber;
 import com.pinwheelsandpearlsboutique.mailchimp.services.UserServiceImpl;
 import com.pinwheelsandpearlsboutique.mailchimp.util.Configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RequestMapping("/api/subscribe")
 @RestController
@@ -28,11 +30,15 @@ public class SubscribeController {
     }
 
     @PostMapping
-    public PWAPUser save(@RequestBody PWAPUser user){
+    public MCSubscriber save(@RequestBody MCSubscriber user){
         log.info("SAVING NEW USER");
         // Consider a converter
         MailChimp mailChimp = new MailChimp(configuration.getAPI_KEY());
-        mailChimp.subscribeUserToList("9ac5e96108", user);
+        try {
+            mailChimp.subscribeUserToList("9ac5e96108", user);
+        } catch (IOException e) {
+            log.error("We in Controller. " + e.getMessage());
+        }
         return userService.save(user);
     }
 }

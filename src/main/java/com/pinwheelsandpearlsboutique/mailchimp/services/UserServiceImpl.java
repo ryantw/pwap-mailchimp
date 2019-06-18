@@ -1,6 +1,6 @@
 package com.pinwheelsandpearlsboutique.mailchimp.services;
 
-import com.pinwheelsandpearlsboutique.mailchimp.models.PWAPUser;
+import com.pinwheelsandpearlsboutique.mailchimp.models.MCSubscriber;
 import com.pinwheelsandpearlsboutique.mailchimp.repositories.UserRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -18,26 +18,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Set<PWAPUser> findAll() {
-        Set<PWAPUser> users = new HashSet<>();
+    public Set<MCSubscriber> findAll() {
+        Set<MCSubscriber> users = new HashSet<>();
         userRepository.findAll().forEach(users::add);
         return users;
     }
 
     @Override
-    public PWAPUser findById(Long aLong) {
+    public MCSubscriber findById(Long aLong) {
         // Make own exception
         return userRepository.findById(aLong)
                 .orElseThrow(() -> new ResourceNotFoundException(Long.toString(aLong)));
     }
 
     @Override
-    public PWAPUser save(PWAPUser object) {
+    public MCSubscriber save(MCSubscriber object) {
         return userRepository.save(object);
     }
 
     @Override
-    public void delete(PWAPUser object) {
+    public void delete(MCSubscriber object) {
         userRepository.delete(object);
     }
 

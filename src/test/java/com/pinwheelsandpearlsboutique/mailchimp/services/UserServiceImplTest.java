@@ -1,6 +1,6 @@
 package com.pinwheelsandpearlsboutique.mailchimp.services;
 
-import com.pinwheelsandpearlsboutique.mailchimp.models.PWAPUser;
+import com.pinwheelsandpearlsboutique.mailchimp.models.MCSubscriber;
 import com.pinwheelsandpearlsboutique.mailchimp.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,32 +29,32 @@ class UserServiceImplTest {
     @InjectMocks
     UserServiceImpl userService;
 
-    PWAPUser user;
+    MCSubscriber user;
 
     @BeforeEach
     void setUp() {
-        user = PWAPUser.builder().id(1L).firstName("Test")
+        user = MCSubscriber.builder().id(1L).firstName("Test")
                 .lastName("Last").emailAddress("r@r.com")
                 .build();
     }
 
     @Test
     void findAll() {
-        Set<PWAPUser> users = new HashSet<>();
-        users.add(PWAPUser.builder().id(1L).firstName("One").build());
-        users.add(PWAPUser.builder().id(2L).firstName("Two").build());
+        Set<MCSubscriber> users = new HashSet<>();
+        users.add(MCSubscriber.builder().id(1L).firstName("One").build());
+        users.add(MCSubscriber.builder().id(2L).firstName("Two").build());
         when(userRepository.findAll()).thenReturn(users);
 
-        Set<PWAPUser> returnedUsers = userService.findAll();
+        Set<MCSubscriber> returnedUsers = userService.findAll();
         assertNotNull(returnedUsers);
         assertEquals(2, returnedUsers.size());
     }
 
     @Test
     void findById() {
-        Optional<PWAPUser> u = Optional.of(user);
+        Optional<MCSubscriber> u = Optional.of(user);
         when(userRepository.findById(anyLong())).thenReturn(u);
-        PWAPUser returnedUser = userService.findById(1L);
+        MCSubscriber returnedUser = userService.findById(1L);
         assertNotNull(returnedUser);
         verify(userRepository, times(1)).findById(anyLong());
         assertEquals(Long.valueOf(1L), returnedUser.getId());
@@ -63,7 +63,7 @@ class UserServiceImplTest {
     @Test
     void save() {
         when(userRepository.save(any())).thenReturn(user);
-        PWAPUser userSaved = userService.save(user);
+        MCSubscriber userSaved = userService.save(user);
         assertNotNull(userSaved);
         verify(userRepository).save(any());
         verify(userRepository, times(1)).save(any());
