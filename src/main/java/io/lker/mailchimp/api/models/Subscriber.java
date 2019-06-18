@@ -1,4 +1,4 @@
-package com.pinwheelsandpearlsboutique.mailchimp.api.models;
+package io.lker.mailchimp.api.models;
 
 import lombok.Builder;
 import lombok.Data;

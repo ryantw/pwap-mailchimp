@@ -1,4 +1,4 @@
-package com.pinwheelsandpearlsboutique.mailchimp.services;
+package io.lker.mailchimp.services;
 
 import java.util.Set;
 

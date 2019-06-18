@@ -1,9 +1,9 @@
-package com.pinwheelsandpearlsboutique.mailchimp.api;
+package io.lker.mailchimp.api;
 
 import com.google.gson.Gson;
-import com.pinwheelsandpearlsboutique.mailchimp.api.models.Subscriber;
-import com.pinwheelsandpearlsboutique.mailchimp.api.util.Connection;
-import com.pinwheelsandpearlsboutique.mailchimp.models.MCSubscriber;
+import io.lker.mailchimp.api.models.Subscriber;
+import io.lker.mailchimp.api.util.Connection;
+import io.lker.mailchimp.models.MCSubscriber;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

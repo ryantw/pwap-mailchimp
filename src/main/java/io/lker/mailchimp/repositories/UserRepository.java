@@ -1,6 +1,6 @@
-package com.pinwheelsandpearlsboutique.mailchimp.repositories;
+package io.lker.mailchimp.repositories;
 
-import com.pinwheelsandpearlsboutique.mailchimp.models.MCSubscriber;
+import io.lker.mailchimp.models.MCSubscriber;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

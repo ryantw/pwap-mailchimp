@@ -1,4 +1,4 @@
-package com.pinwheelsandpearlsboutique.mailchimp.mailchimp;
+package io.lker.mailchimp.mailchimp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

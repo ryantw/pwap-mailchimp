@@ -1,4 +1,4 @@
-package com.pinwheelsandpearlsboutique.mailchimp.models;
+package io.lker.mailchimp.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

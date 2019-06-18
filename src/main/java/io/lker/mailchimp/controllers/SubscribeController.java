@@ -1,9 +1,9 @@
-package com.pinwheelsandpearlsboutique.mailchimp.controllers;
+package io.lker.mailchimp.controllers;
 
-import com.pinwheelsandpearlsboutique.mailchimp.api.MailChimp;
-import com.pinwheelsandpearlsboutique.mailchimp.models.MCSubscriber;
-import com.pinwheelsandpearlsboutique.mailchimp.services.UserServiceImpl;
-import com.pinwheelsandpearlsboutique.mailchimp.util.Configuration;
+import io.lker.mailchimp.api.MailChimp;
+import io.lker.mailchimp.models.MCSubscriber;
+import io.lker.mailchimp.services.UserServiceImpl;
+import io.lker.mailchimp.util.Configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;

@@ -1,7 +1,7 @@
-package com.pinwheelsandpearlsboutique.mailchimp.services;
+package io.lker.mailchimp.services;
 
-import com.pinwheelsandpearlsboutique.mailchimp.models.MCSubscriber;
-import com.pinwheelsandpearlsboutique.mailchimp.repositories.UserRepository;
+import io.lker.mailchimp.models.MCSubscriber;
+import io.lker.mailchimp.repositories.UserRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 

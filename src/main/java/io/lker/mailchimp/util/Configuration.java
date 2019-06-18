@@ -1,4 +1,4 @@
-package com.pinwheelsandpearlsboutique.mailchimp.util;
+package io.lker.mailchimp.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
