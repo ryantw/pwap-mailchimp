@@ -50,7 +50,7 @@ public class Connection {
             in.close();
 
         } catch (Exception e){
-            e.printStackTrace();
+            throw new MCHttpBadResponse(500);
         } finally {
             if(urlConnection != null)
                 urlConnection.disconnect();
