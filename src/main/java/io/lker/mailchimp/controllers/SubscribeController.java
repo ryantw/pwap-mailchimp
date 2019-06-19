@@ -1,15 +1,16 @@
 package io.lker.mailchimp.controllers;
 
 import io.lker.mailchimp.api.MailChimp;
+import io.lker.mailchimp.exceptions.MCHttpBadResponse;
 import io.lker.mailchimp.models.MCSubscriber;
 import io.lker.mailchimp.services.UserServiceImpl;
 import io.lker.mailchimp.util.Configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
+import org.springframework.web.server.ResponseStatusException;
 
 @RequestMapping("/api/subscribe")
 @RestController
@@ -35,9 +36,10 @@ public class SubscribeController {
         // Consider a converter
         MailChimp mailChimp = new MailChimp(configuration.getAPI_KEY());
         try {
-            mailChimp.subscribeUserToList("9ac5e96108", user);
-        } catch (IOException e) {
-            log.error("We in Controller. " + e.getMessage());
+            mailChimp.subscribeUserToList("9ac5e96108zzz", user);
+        } catch (MCHttpBadResponse e) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Not Authorized", e);
         }
         return userService.save(user);
     }

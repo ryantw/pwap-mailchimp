@@ -1,21 +1,19 @@
 package io.lker.mailchimp.api.util;
 
+import io.lker.mailchimp.exceptions.MCHttpBadResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Base64;
 
 @Slf4j
 public class Connection {
 
-    public static String doPost(String postUrl, String body, String authorization) throws IOException {
+    public static String doPost(String postUrl, String body, String authorization) throws MCHttpBadResponse {
         StringBuilder response = new StringBuilder();
         HttpURLConnection urlConnection = null;
 
@@ -34,8 +32,10 @@ public class Connection {
             writer.close();
 
             int responseCode = urlConnection.getResponseCode();
-            if(responseCode < 200 || responseCode > 299){
-                throw new IOException("Response code not right: " + responseCode);
+            if (responseCode < 200 || responseCode > 299) {
+                if (responseCode == 401) {
+                    throw new MCHttpBadResponse(responseCode);
+                }
             }
 
             BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -43,15 +43,13 @@ public class Connection {
             ));
 
             String inputLine;
-            while((inputLine = in.readLine()) != null){
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
 
             in.close();
 
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
             if(urlConnection != null)
