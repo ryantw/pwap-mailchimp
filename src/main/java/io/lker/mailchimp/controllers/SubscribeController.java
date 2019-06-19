@@ -36,7 +36,7 @@ public class SubscribeController {
         // Consider a converter
         MailChimp mailChimp = new MailChimp(configuration.getAPI_KEY());
         try {
-            mailChimp.subscribeUserToList("9ac5e96108zzz", user);
+            mailChimp.subscribeUserToList("9ac5e96108", user);
         } catch (MCHttpBadResponse e) {
             throw new ResponseStatusException(
                     HttpStatus.UNAUTHORIZED, "Not Authorized", e);
