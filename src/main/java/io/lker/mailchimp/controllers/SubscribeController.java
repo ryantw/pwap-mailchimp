@@ -32,12 +32,15 @@ public class SubscribeController {
 
     @PostMapping
     public MCSubscriber save(@RequestBody MCSubscriber user){
-        log.info("SAVING NEW USER");
+        log.info("Attempting to save new user.");
         // Consider a converter
         MailChimp mailChimp = new MailChimp(configuration.getAPI_KEY());
         try {
             mailChimp.subscribeUserToList("9ac5e96108", user);
+            user.setMailChimpSuccess(true);
         } catch (MCHttpBadResponse e) {
+            user.setMailChimpSuccess(false);
+            userService.save(user);
             throw new ResponseStatusException(
                     HttpStatus.UNAUTHORIZED, "Not Authorized", e);
         }

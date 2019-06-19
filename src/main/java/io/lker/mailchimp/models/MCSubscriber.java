@@ -29,6 +29,9 @@ public class MCSubscriber implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "mailchimp_success")
+    private boolean mailChimpSuccess;
+
     @JsonProperty("email_address")
     @Column(name = "email")
     private String emailAddress;
