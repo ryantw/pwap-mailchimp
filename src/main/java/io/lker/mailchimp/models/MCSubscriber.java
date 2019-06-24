@@ -23,17 +23,32 @@ public class MCSubscriber implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "mail_chimp_id")
+    private String mcId;
+
+    @Column(name = "unique_email_id")
+    private String uniqueEmailId;
+
+    @Column(name = "web_id")
+    private String webId;
+
+    @Column(name = "status")
+    private String mcStatus;
+
     @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "mailchimp_list")
+    private String mcList;
+
     @Column(name = "mailchimp_success")
-    private boolean mailChimpSuccess;
+    private boolean mcSuccess;
 
     @JsonProperty("email_address")
-    @Column(name = "email")
+    @Column(name = "emailaddress", unique = true)
     private String emailAddress;
 
 }

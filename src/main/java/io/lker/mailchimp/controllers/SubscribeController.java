@@ -1,6 +1,7 @@
 package io.lker.mailchimp.controllers;
 
 import io.lker.mailchimp.api.MailChimp;
+import io.lker.mailchimp.converters.MCResponseToSubscriber;
 import io.lker.mailchimp.exceptions.MCHttpBadResponse;
 import io.lker.mailchimp.models.MCSubscriber;
 import io.lker.mailchimp.services.UserServiceImpl;
@@ -18,11 +19,14 @@ import org.springframework.web.server.ResponseStatusException;
 public class SubscribeController {
 
     private final UserServiceImpl userService;
+    private final MCResponseToSubscriber mcResponseToSubscriber;
+
     @Autowired
     private Configuration configuration;
 
-    public SubscribeController(UserServiceImpl userService) {
+    public SubscribeController(UserServiceImpl userService, MCResponseToSubscriber mcResponseToSubscriber) {
         this.userService = userService;
+        this.mcResponseToSubscriber = mcResponseToSubscriber;
     }
 
     @InitBinder
@@ -32,14 +36,25 @@ public class SubscribeController {
 
     @PostMapping
     public MCSubscriber save(@RequestBody MCSubscriber user){
+        final String MC_LIST = "9ac5e96108";
         log.info("Attempting to save new user.");
-        // Consider a converter
-        MailChimp mailChimp = new MailChimp(configuration.getAPI_KEY());
+
         try {
-            mailChimp.subscribeUserToList("9ac5e96108", user);
-            user.setMailChimpSuccess(true);
+            if(userService.existsByEmailAddress(user.getEmailAddress())){
+                log.error("Email Address already exists! Throw something and get outta here!");
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Email Exists");
+            }
+
+            user.setMcList(MC_LIST);
+            MailChimp mailChimp = new MailChimp(configuration.getAPI_KEY());
+            String response = mailChimp.subscribeUserToList(MC_LIST, user);
+
+            if(response != null){
+                user = mcResponseToSubscriber.convert(response);
+                user.setMcSuccess(true);
+            }
         } catch (MCHttpBadResponse e) {
-            user.setMailChimpSuccess(false);
+            user.setMcSuccess(false);
             userService.save(user);
             throw new ResponseStatusException(
                     HttpStatus.UNAUTHORIZED, "Not Authorized", e);

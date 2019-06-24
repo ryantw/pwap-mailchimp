@@ -33,9 +33,7 @@ public class Connection {
 
             int responseCode = urlConnection.getResponseCode();
             if (responseCode < 200 || responseCode > 299) {
-                if (responseCode == 401) {
-                    throw new MCHttpBadResponse(responseCode);
-                }
+                throw new MCHttpBadResponse(responseCode);
             }
 
             BufferedReader in = new BufferedReader(new InputStreamReader(
