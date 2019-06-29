@@ -43,7 +43,7 @@ public class SubscribeController {
     }
 
     @PostMapping
-    public MCSubscriber save(@RequestBody MCSubscriber user){
+    public ResponseEntity<MCSubscriberDTO> save(@RequestBody MCSubscriber user){
         final String MC_LIST = "9ac5e96108";
         log.info("Attempting to save new user.");
 
@@ -67,6 +67,6 @@ public class SubscribeController {
             throw new ResponseStatusException(
                     HttpStatus.UNAUTHORIZED, "Not Authorized", e);
         }
-        return userService.save(user);
+        return ResponseEntity.ok(subscriberMapper.toMCSubscriberDTO(userService.save(user)));
     }
 }
