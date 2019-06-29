@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
     public Set<MCSubscriber> findAll() {
         Set<MCSubscriber> users = new HashSet<>();
         userRepository.findAll().forEach(users::add);
+        log.info("Size:" + users.size());
         return users;
     }
 
