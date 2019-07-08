@@ -1,16 +1,18 @@
 package io.lker.mailchimp.exceptions;
 
 
-public class MCHttpBadResponse extends RuntimeException {
+import org.springframework.http.HttpStatus;
 
-    private int httpStatus;
+public class MCHttpBadResponse extends Exception {
 
-    public MCHttpBadResponse(int httpStatus){
-        super("Request not successful: " + httpStatus);
+    private HttpStatus httpStatus;
+
+    public MCHttpBadResponse(HttpStatus httpStatus){
+        super("[MC]: Request not successful: " + httpStatus);
         this.httpStatus = httpStatus;
     }
 
-    public int getHttpStatus() {
+    public HttpStatus getHttpStatus() {
         return httpStatus;
     }
 }

@@ -2,6 +2,7 @@ package io.lker.mailchimp.api.util;
 
 import io.lker.mailchimp.exceptions.MCHttpBadResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -32,9 +33,10 @@ public class Connection {
             writer.close();
 
             int responseCode = urlConnection.getResponseCode();
+            /*
             if (responseCode < 200 || responseCode > 299) {
-                throw new MCHttpBadResponse(responseCode);
-            }
+                throw new MCHttpBadResponse(HttpStatus.resolve(responseCode));
+            }*/
 
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     urlConnection.getInputStream()
@@ -48,7 +50,7 @@ public class Connection {
             in.close();
 
         } catch (Exception e){
-            throw new MCHttpBadResponse(500);
+            throw new MCHttpBadResponse(HttpStatus.SERVICE_UNAVAILABLE);
         } finally {
             if(urlConnection != null)
                 urlConnection.disconnect();
