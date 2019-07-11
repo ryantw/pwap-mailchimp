@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class MCResponseToSubscriberTest {
+class SubmitterToSubscriberTest {
     String json = "\n" +
             "\n" +
             "{\n" +

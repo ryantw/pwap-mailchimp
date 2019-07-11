@@ -8,47 +8,35 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Builder
 @AllArgsConstructor
 @Slf4j
-@Table(name = "users")
-public class MCSubscriber implements Serializable {
+@Table(name = "submissions")
+public class Submitter implements Serializable {
 
-    public MCSubscriber(){}
+    public Submitter(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "mail_chimp_id")
-    private String mcId;
-
-    @Column(name = "unique_email_id")
-    private String uniqueEmailId;
-
-    @Column(name = "web_id")
-    private String webId;
-
-    @Column(name = "status")
-    private String mcStatus;
-
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
     @Column(name = "mailchimp_list")
     private String mcList;
-
-    @Column(name = "mailchimp_success")
-    private boolean mcSuccess;
 
     @JsonProperty("email_address")
     @Column(name = "emailaddress", unique = true)
     private String emailAddress;
 
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+
+    @Column(name = "last_attempt")
+    private LocalDateTime lastAttempt;
+
+    @Column(name = "attempted_tries")
+    private int attemptedTries;
 }

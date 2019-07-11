@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Subscriber {
+public class SubscriberResponse {
     // Match var names w/ field names
 
     private String email_address;

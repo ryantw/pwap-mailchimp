@@ -2,22 +2,22 @@ package io.lker.mailchimp.converters;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
-import io.lker.mailchimp.models.MCSubscriber;
+import io.lker.mailchimp.models.Subscriber;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MCResponseToSubscriber implements Converter<String, MCSubscriber> {
+public class SubmitterToSubscriber implements Converter<String, Subscriber> {
 
     @Synchronized
     @Override
-    public MCSubscriber convert(String mcResponse){
+    public Subscriber convert(String mcResponse){
         if(mcResponse == null)
             return null;
 
         GsonBuilder builder = new GsonBuilder();
-        MCSubscriber converted = new MCSubscriber();
+        Subscriber converted = new Subscriber();
         LinkedTreeMap<String, Object> response = builder.create().fromJson(mcResponse, LinkedTreeMap.class);
         response.entrySet().stream().forEach(e ->{
             if(e.getValue() != null) {

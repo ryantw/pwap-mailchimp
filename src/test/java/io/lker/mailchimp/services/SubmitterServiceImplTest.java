@@ -1,7 +1,7 @@
 package io.lker.mailchimp.services;
 
-import io.lker.mailchimp.models.MCSubscriber;
-import io.lker.mailchimp.repositories.UserRepository;
+import io.lker.mailchimp.models.Submitter;
+import io.lker.mailchimp.repositories.SubmitterRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,52 +21,51 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceImplTest {
+class SubmitterServiceImplTest {
 
     @Mock
-    UserRepository userRepository;
+    SubmitterRepository submitterRepository;
 
     @InjectMocks
-    UserServiceImpl userService;
+    SubmitterServiceImpl userService;
 
-    MCSubscriber user;
+    Submitter user;
 
     @BeforeEach
     void setUp() {
-        user = MCSubscriber.builder().id(1L).firstName("Test")
-                .lastName("Last").emailAddress("r@r.com")
+        user = Submitter.builder().id(1L).emailAddress("r@r.com")
                 .build();
     }
 
     @Test
     void findAll() {
-        Set<MCSubscriber> users = new HashSet<>();
-        users.add(MCSubscriber.builder().id(1L).firstName("One").build());
-        users.add(MCSubscriber.builder().id(2L).firstName("Two").build());
-        when(userRepository.findAll()).thenReturn(users);
+        Set<Submitter> users = new HashSet<>();
+        users.add(Submitter.builder().id(1L).build());
+        users.add(Submitter.builder().id(2L).build());
+        when(submitterRepository.findAll()).thenReturn(users);
 
-        Set<MCSubscriber> returnedUsers = userService.findAll();
+        Set<Submitter> returnedUsers = userService.findAll();
         assertNotNull(returnedUsers);
         assertEquals(2, returnedUsers.size());
     }
 
     @Test
     void findById() {
-        Optional<MCSubscriber> u = Optional.of(user);
-        when(userRepository.findById(anyLong())).thenReturn(u);
-        MCSubscriber returnedUser = userService.findById(1L);
+        Optional<Submitter> u = Optional.of(user);
+        when(submitterRepository.findById(anyLong())).thenReturn(u);
+        Submitter returnedUser = userService.findById(1L);
         assertNotNull(returnedUser);
-        verify(userRepository, times(1)).findById(anyLong());
+        verify(submitterRepository, times(1)).findById(anyLong());
         assertEquals(Long.valueOf(1L), returnedUser.getId());
     }
 
     @Test
     void save() {
-        when(userRepository.save(any())).thenReturn(user);
-        MCSubscriber userSaved = userService.save(user);
+        when(submitterRepository.save(any())).thenReturn(user);
+        Submitter userSaved = userService.save(user);
         assertNotNull(userSaved);
-        verify(userRepository).save(any());
-        verify(userRepository, times(1)).save(any());
+        verify(submitterRepository).save(any());
+        verify(submitterRepository, times(1)).save(any());
     }
 
     @Test
@@ -77,6 +76,6 @@ class UserServiceImplTest {
     void deleteById() {
         Long id = Long.valueOf(1L);
         userService.deleteById(id);
-        verify(userRepository, times(1)).deleteById(anyLong());
+        verify(submitterRepository, times(1)).deleteById(anyLong());
     }
 }

@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Slf4j
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException ex, HttpHeaders headers,
@@ -25,26 +24,16 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
     }
 
-    // Handle mailchimp errors, even return them -- not helpful to user
+    // Handle mailchimp errors, even return them? -- not helpful to user
     @ExceptionHandler(MCHttpBadResponse.class)
     protected ResponseEntity<Object> handleMailChimpError(MCHttpBadResponse ex){
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage()));
     }
-    /*
-    @ExceptionHandler(MCHttpBadResponse.class)
-    protected ResponseEntity<Object> handleConflict(
-            MCHttpBadResponse ex, WebRequest request) {
 
-        log.error("Exception throw.");
-        ApiError errors = new ApiError();
-        errors.setTimestamp(LocalDateTime.now());
-        errors.setError(ex.getMessage());
-        errors.setStatus(ex.getHttpStatus());
-
-        return handleExceptionInternal(ex, errors,
-                new HttpHeaders(), errors.getStatus(), request);
+    @ExceptionHandler(NotUniqueException.class)
+    protected ResponseEntity<Object> handleNotUniqueError(NotUniqueException ex){
+        return buildResponseEntity(new ApiError(HttpStatus.PRECONDITION_FAILED, ex.getMessage()));
     }
-    */
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());

@@ -1,9 +1,9 @@
 package io.lker.mailchimp.controllers;
 
-import io.lker.mailchimp.converters.MCResponseToSubscriber;
-import io.lker.mailchimp.models.MCSubscriber;
-import io.lker.mailchimp.models.MCSubscriberDTO;
-import io.lker.mailchimp.services.UserServiceImpl;
+import io.lker.mailchimp.converters.SubmitterToSubscriber;
+import io.lker.mailchimp.models.Submitter;
+import io.lker.mailchimp.models.SubmitterDTO;
+import io.lker.mailchimp.services.SubmitterServiceImpl;
 import io.lker.mailchimp.util.SubscriberMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,9 +24,9 @@ import java.util.Set;
 class SubscribeControllerTest {
 
     @Mock
-    UserServiceImpl userService;
+    SubmitterServiceImpl userService;
 
-    MCResponseToSubscriber mcResponseToSubscriber;
+    SubmitterToSubscriber submitterToSubscriber;
     SubscriberMapper subscriberMapper;
 
     @InjectMocks
@@ -34,15 +34,15 @@ class SubscribeControllerTest {
 
     MockMvc mockMvc;
 
-    Set<MCSubscriber> users;
-    Set<MCSubscriberDTO> usersDto;
+    Set<Submitter> users;
+    Set<SubmitterDTO> usersDto;
 
     @BeforeEach
     void setUp() throws Exception {
         users = new HashSet<>();
-        users.add(MCSubscriber.builder().firstName("Bob").lastName("Builder").emailAddress("bb@a.com").build());
-        users.add(MCSubscriber.builder().firstName("Albert").lastName("Parr").emailAddress("albert@b.com").build());
-        users.add(MCSubscriber.builder().firstName("Shan").lastName("Bryan").emailAddress("shan@c.com").build());
+        users.add(Submitter.builder().emailAddress("bb@a.com").build());
+        users.add(Submitter.builder().emailAddress("albert@b.com").build());
+        users.add(Submitter.builder().emailAddress("shan@c.com").build());
         MockitoAnnotations.initMocks(this);
         //subscribeController = new SubscribeController(userService, mcResponseToSubscriber, subscriberMapper);
         mockMvc = MockMvcBuilders.standaloneSetup(subscribeController).build();

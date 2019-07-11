@@ -1,10 +1,10 @@
 package io.lker.mailchimp.api;
 
 import com.google.gson.Gson;
-import io.lker.mailchimp.api.models.Subscriber;
+import io.lker.mailchimp.api.models.SubscriberResponse;
 import io.lker.mailchimp.api.util.Connection;
 import io.lker.mailchimp.exceptions.MCHttpBadResponse;
-import io.lker.mailchimp.models.MCSubscriber;
+import io.lker.mailchimp.models.Submitter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -29,10 +29,10 @@ public class MailChimp {
         return null;
     }
 
-    public String subscribeUserToList(String listId, MCSubscriber subscriber) throws MCHttpBadResponse {
+    public String subscribeUserToList(String listId, Submitter subscriber) throws MCHttpBadResponse {
         final String LIST_ENDPOINT = API_ENDPOINT + "/lists/" + listId + "/members";
         Gson gson = new Gson();
-        Subscriber s = Subscriber.builder()
+        SubscriberResponse s = SubscriberResponse.builder()
                 .email_address(subscriber.getEmailAddress())
                 .status("subscribed")
                 .build();

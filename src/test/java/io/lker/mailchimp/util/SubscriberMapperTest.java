@@ -1,7 +1,7 @@
 package io.lker.mailchimp.util;
 
-import io.lker.mailchimp.models.MCSubscriber;
-import io.lker.mailchimp.models.MCSubscriberDTO;
+import io.lker.mailchimp.models.Submitter;
+import io.lker.mailchimp.models.SubmitterDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,12 +18,11 @@ class SubscriberMapperTest {
     private final String FIRST_NAME = "Rude";
     private final String LAST_NAME = "Dude";
 
-    private MCSubscriberDTO mappedUser;
+    private SubmitterDTO mappedUser;
 
     @BeforeEach
     void setUp() {
-        MCSubscriber user = MCSubscriber.builder().emailAddress(EMAIL).firstName(FIRST_NAME)
-                .lastName(LAST_NAME).build();
+        Submitter user = Submitter.builder().emailAddress(EMAIL).build();
 
         SubscriberMapper subscriberMapper = Mappers.getMapper(SubscriberMapper.class);
 
