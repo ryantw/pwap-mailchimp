@@ -39,4 +39,7 @@ public class Submitter implements Serializable {
 
     @Column(name = "attempted_tries")
     private int attemptedTries;
+
+    @Column(name = "mc_success")
+    private boolean mcSuccess = false;
 }

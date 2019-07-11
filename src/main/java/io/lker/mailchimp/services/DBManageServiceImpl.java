@@ -40,9 +40,12 @@ public class DBManageServiceImpl implements DBManageService {
         Submitter saveSubmission = saveLocal(submitter);
 
         if(saveSubmission == null)
-            return null;
+            return submitter;
 
         Subscriber subscriber = saveToMailChimp(saveSubmission);
+        if(StringUtils.isNotBlank(subscriber.getMcId())){
+            deleteLocal(saveSubmission);
+        }
 
         return subscriber;
     }
@@ -75,7 +78,14 @@ public class DBManageServiceImpl implements DBManageService {
             saveSubscriber = submitterToSubscriber.convert(response);
         }
 
+        saveSubscriber.setMcSuccess(true);
+        saveSubscriber.setCreatedDate(submitter.getCreatedDate());
+
         return subscriberRepository.save(saveSubscriber);
+    }
+
+    private void deleteLocal(Submitter submitter){
+        submitterRepository.deleteById(submitter.getId());
     }
 
     @Override

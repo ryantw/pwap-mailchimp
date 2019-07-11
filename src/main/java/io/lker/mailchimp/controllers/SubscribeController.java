@@ -36,11 +36,15 @@ public class SubscribeController {
     @PostMapping
     public ResponseEntity<SubmitterDTO> save(@RequestBody Submitter user){
         final String MC_LIST = "9ac5e96108";
-        log.info("Attempting to save new user.");
+        log.info(String.format("Attempting to subscribe: %s", user.getEmailAddress()));
         user.setMcList(MC_LIST);
         try {
-            dbManageService.save(user);
+            Object submitter = dbManageService.save(user);
+            if(submitter != null){
+                user.setMcSuccess(true);
+            }
         } catch (Exception e){
+            log.error(String.format("Subscribing: %s, FAILED", user.getEmailAddress()));
             e.printStackTrace();
         }
 

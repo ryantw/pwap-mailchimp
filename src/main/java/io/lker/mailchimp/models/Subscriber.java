@@ -51,4 +51,7 @@ public class Subscriber implements Serializable {
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
+
+    @Column(name = "mc_success")
+    private boolean mcSuccess = false;
 }
